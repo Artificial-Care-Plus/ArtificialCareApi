@@ -47,18 +47,19 @@ public class UsuarioResource {
         if(!mensagem.isSucesso()){
             return Response.status(Response.Status.BAD_REQUEST).entity(mensagem).build();
         }
-        return Response.ok(mensagem).build();
+        return Response.status(Response.Status.CREATED).entity(mensagem).build();
     }
 
     @DELETE
     @Path("{email}")
     /* No banco de dados o email é único então por segurança no site passamos o email como parametro */
     public Response delete(@PathParam("email") String email) throws SQLException {
-        Mensagem mensagem = UsuarioService.delete(email);
-        if(!mensagem.isSucesso()){
-            return Response.status(Response.Status.BAD_REQUEST).entity(mensagem).build();
+        var usuarioBanco = UsuarioService.find(email);
+        if(usuarioBanco == null){
+            return Response.status(Response.Status.NOT_FOUND).entity(new Mensagem("Email não existe", false)).build();
         }
-        return Response.ok(mensagem).build();
+        UsuarioService.delete(email);
+        return Response.noContent().build();
     }
 
     @PUT
@@ -66,6 +67,11 @@ public class UsuarioResource {
     /* No banco de dados o email é único então por segurança no site passamos o email como parametro */
     @Produces(MediaType.APPLICATION_JSON)
     public Response update(@PathParam("email") String email, Usuario usuario) throws SQLException {
+        var usuarioBanco = UsuarioService.find(email);
+        if(usuarioBanco == null){
+            return Response.status(Response.Status.NOT_FOUND).entity(new Mensagem("Email não existe", false)).build();
+        }
+
         Mensagem mensagem = UsuarioService.update(email, usuario);
         if(!mensagem.isSucesso()){
             return Response.status(Response.Status.BAD_REQUEST).entity(mensagem).build();

@@ -84,7 +84,6 @@ public class UsuarioDao {
         if (rs.isAfterLast()) {
             return null;
         }
-        System.out.println(rs);
         Usuario usuario = new Usuario (
                 rs.getLong("id"),
                 rs.getString("nome"),

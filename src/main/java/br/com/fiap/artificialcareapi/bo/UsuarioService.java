@@ -25,13 +25,13 @@ public class UsuarioService {
     }
 
     public static Mensagem create(Usuario usuario) throws SQLException {
-        if(!validar(usuario.getEmail())) {
+        if (!validar(usuario.getEmail())) {
             return new Mensagem("Email já cadastrado", false);
         }
 
         try {
             UsuarioDao.create(usuario);
-            } catch(Exception e){
+        } catch (Exception e) {
             return new Mensagem("Erro no servidor ao criar usuário", false);
         }
 
@@ -39,30 +39,31 @@ public class UsuarioService {
     }
 
 
-
-    public static Mensagem delete(String email) throws SQLException {
-        if (validar(email)){
-            return new Mensagem("Email não encontrado", false);
-        }
-        try {
-            UsuarioDao.delete(email);
-        } catch (SQLException e) {
-            return new Mensagem("Erro no servidor ao deletar usuário", false);
-        }
-        return new Mensagem("Usuário deletado com sucesso", true);
+    public static void delete(String email) throws SQLException {
+        UsuarioDao.delete(email);
     }
 
     public static Mensagem update(String email, Usuario usuario) throws SQLException {
-        if (validar(usuario.getEmail())){
-            return new Mensagem("Email não encontrado", false);
-        }
-        try {
-            UsuarioDao.update(email, usuario);
-        } catch (SQLException e) {
-            return new Mensagem("Erro no servidor ao atualizar usuário", false);
-        }
-        return new Mensagem("Usuário atualizado com sucesso", true);
+        /* Caso o usuario queira trocar o email verificamos se não é igual ao que ele usava antes e depois checamos
+         * se não já está cadastrado */
+        if (!email.equals(usuario.getEmail()) && !validar(usuario.getEmail())) {
+        return new Mensagem("Email já cadastrado", false);
     }
+        try
+
+    {
+        UsuarioDao.update(email, usuario);
+    } catch(
+    SQLException e)
+
+    {
+        return new Mensagem("Erro no servidor ao atualizar usuário", false);
+    }
+        return new
+
+    Mensagem("Usuário atualizado com sucesso",true);
+
+}
 
     public static Usuario find(String email) throws SQLException {
         return UsuarioDao.find(email);
