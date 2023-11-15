@@ -46,4 +46,31 @@ public class UsuarioDao {
             con.close();
 
     }
+
+    public static void delete(String email) throws SQLException {
+            var con = ConnectionFactory.getConnection();
+
+            var rs = con.prepareStatement("DELETE FROM T_AC_USUARIO WHERE email = ?");
+            rs.setString(1, email);
+            rs.executeUpdate();
+
+            con.close();
+
+    }
+
+    public static void update(String email, Usuario usuario) throws SQLException {
+        var con = ConnectionFactory.getConnection();
+
+        var rs = con.prepareStatement("UPDATE T_AC_USUARIO SET nome = ?, email = ?, senha = ?, nascimento = ?, peso = ?, altura = ? WHERE email = ?");
+        rs.setString(1, usuario.getNome());
+        rs.setString(2, usuario.getEmail());
+        rs.setString(3, usuario.getSenha());
+        rs.setDate(4, usuario.getNascimento());
+        rs.setDouble(5, usuario.getPeso());
+        rs.setDouble(6, usuario.getAltura());
+        rs.setString(7, email);
+        rs.executeUpdate();
+
+        con.close();
+    }
 }
