@@ -13,6 +13,7 @@ import jakarta.ws.rs.core.Response;
 
 @Path("acoes")
 public class AcoesResource {
+    /* Get all nao recebe parametro*/
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAll() throws SQLException {
@@ -24,5 +25,8 @@ public class AcoesResource {
 
         return Response.ok(acoesLista).build();
     }
+    /* getById {id} */
+
+    /* getbyIdUsuario {id} / {qtd} */
 
 }

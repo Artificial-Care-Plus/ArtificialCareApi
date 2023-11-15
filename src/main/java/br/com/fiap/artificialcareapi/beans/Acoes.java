@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class Acoes {
     private Long id;
-    private Long idUsuario;
+    private Usuario usuario;
     private int score;
     private String descricao;
     private double duracao;
@@ -27,12 +27,12 @@ public class Acoes {
         this.id = id;
     }
 
-    public Long getIdUsuario() {
-        return idUsuario;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setIdUsuario(Long idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public int getScore() {
@@ -59,9 +59,9 @@ public class Acoes {
         this.data = data;
     }
 
-    public Acoes(Long id, Long idUsuario, int score, String descricao, double duracao, Date data) {
+    public Acoes(Long id, Usuario usuario, int score, String descricao, double duracao, Date data) {
         this.id = id;
-        this.idUsuario = idUsuario;
+        this.usuario = usuario;
         this.score = score;
         this.descricao = descricao;
         this.duracao = duracao;
@@ -74,6 +74,8 @@ public class Acoes {
         this.duracao = duracao;
         this.data = data;
     }
+
+
 
     public Acoes() {
     }

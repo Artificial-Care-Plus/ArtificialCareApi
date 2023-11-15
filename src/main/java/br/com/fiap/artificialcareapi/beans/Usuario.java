@@ -86,6 +86,10 @@ public class Usuario {
         this.altura = altura;
     }
 
+    public Usuario(String email) {
+        this.email = email;
+    }
+
     public Usuario() {
     }
 }
