@@ -14,6 +14,20 @@ import java.util.List;
 
 @Path("usuario")
 public class UsuarioResource {
+
+    @GET
+    @Path("{email}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response get(@PathParam("email") String email) throws SQLException {
+        Usuario usuario = UsuarioService.find(email);
+
+        if(usuario == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+        return Response.ok(usuario).build();
+    }
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getall() throws SQLException {

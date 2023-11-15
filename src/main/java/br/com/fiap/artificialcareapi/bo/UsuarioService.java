@@ -63,4 +63,8 @@ public class UsuarioService {
         }
         return new Mensagem("Usuário atualizado com sucesso", true);
     }
+
+    public static Usuario find(String email) throws SQLException {
+        return UsuarioDao.find(email);
+    }
 }
