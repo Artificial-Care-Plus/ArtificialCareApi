@@ -68,6 +68,14 @@ public class Acoes {
         this.data = data;
     }
 
+    public Acoes(Usuario usuario, int score, String descricao, double duracao, Date data) {
+        this.usuario = usuario;
+        this.score = score;
+        this.descricao = descricao;
+        this.duracao = duracao;
+        this.data = data;
+    }
+
     public Acoes(int score, String descricao, double duracao, Date data) {
         this.score = score;
         this.descricao = descricao;

@@ -27,7 +27,6 @@ public class UsuarioDao {
             );
         }
         con.close();
-        System.out.println(usuarios);
         return usuarios;
     }
 
@@ -49,10 +48,14 @@ public class UsuarioDao {
 
     public static void delete(String email) throws SQLException {
             var con = ConnectionFactory.getConnection();
-
-            var ps = con.prepareStatement("DELETE FROM T_AC_USUARIO WHERE email = ?");
+            /* Apaga o usuario e as acoes que ele tem no banco de dados */
+            var ps = con.prepareStatement("DELETE FROM T_AC_ACOES WHERE T_AC_ACOES.T_AC_USUARIO_ID = (SELECT T_AC_USUARIO.id FROM T_AC_USUARIO WHERE T_AC_USUARIO.email = ?)");
             ps.setString(1, email);
             ps.executeUpdate();
+
+            var ps2 = con.prepareStatement("DELETE FROM T_AC_USUARIO WHERE T_AC_USUARIO.email = ? ");
+            ps2.setString(1, email);
+            ps2.executeUpdate();
 
             con.close();
 
