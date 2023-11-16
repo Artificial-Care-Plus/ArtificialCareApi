@@ -1,4 +1,4 @@
-# ArtificialCareApi </br>
+# ArtificialCareApi 
 
 # Endpoints
 
