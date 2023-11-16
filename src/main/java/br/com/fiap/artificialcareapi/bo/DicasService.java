@@ -9,6 +9,7 @@ import java.util.List;
 
 public class DicasService {
 
+    /* As poucas validações que possuimos são feitas no front-end  */
     public static List<Dicas> findAll() throws SQLException {
         return DicasDao.findAll();
     }

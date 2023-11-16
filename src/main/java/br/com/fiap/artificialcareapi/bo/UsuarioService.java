@@ -9,15 +9,20 @@ import java.util.List;
 
 public class UsuarioService {
 
-    private static boolean validar(String email) throws SQLException {
+    private static Mensagem validar(Usuario usuario) throws SQLException {
         for (Usuario user : UsuarioDao.findAll()) {
-            if (user.getEmail().equals(email)) {
-                return false;
+            if (user.getEmail().equals(usuario.getEmail())) {
+                return new Mensagem("Email já cadastrado", false);
             }
         }
-
-        /* O restante das validacoes sao feitas no app e no site (verificam tamanho, data e se está "nulo") */
-        return true;
+        if (!usuario.getEmail().contains("@")) {
+            return new Mensagem("Email inválido", false);
+        }
+        if (usuario.getSenha().length() < 8) {
+            return new Mensagem("Senha deve ter no mínimo 8 caracteres", false);
+        }
+        /* O restante das validacoes sao feitas no app e no site (verificam tamanho, data e se está "nulo")*/
+        return new Mensagem("Usuário válido", true);
     }
 
     public static List<Usuario> findAll() throws SQLException {
@@ -25,8 +30,9 @@ public class UsuarioService {
     }
 
     public static Mensagem create(Usuario usuario) throws SQLException {
-        if (!validar(usuario.getEmail())) {
-            return new Mensagem("Email já cadastrado", false);
+        var validacao = validar(usuario);
+        if (!validacao.isSucesso()) {
+            return validacao;
         }
 
         try {
@@ -46,8 +52,9 @@ public class UsuarioService {
     public static Mensagem update(String email, Usuario usuario) throws SQLException {
         /* Caso o usuario queira trocar o email verificamos se não é igual ao que ele usava antes e depois checamos
          * se não já está cadastrado */
-        if (!email.equals(usuario.getEmail()) && !validar(usuario.getEmail())) {
-        return new Mensagem("Email já cadastrado", false);
+        Mensagem validacao = validar(usuario);
+        if (!email.equals(usuario.getEmail()) && validacao.isSucesso()) {
+        return validacao;
     }
         try
 

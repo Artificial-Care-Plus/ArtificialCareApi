@@ -10,8 +10,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class AcoesService {
-
-
+    /* As poucas validações que possuimos são feitas no front-end  */
     public static List<Acoes> findAll() throws SQLException {
         return AcoesDao.findAll();
     }
