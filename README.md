@@ -31,8 +31,8 @@ Body: {
 ## Ações:
 - GET URL+/webapi/acoes (GET ALL Dicas)
 - GET URL+/webapi/acoes/{id} (GET BY ID)
-- GET URL+/webapi/acoes/{emailCliente}/{qtd} (GET BY Email/Qtd)
-A quantidade de açoes que quer obter. caso peça 4 e tenha 2: retorna 2
+- GET URL+/webapi/acoes/{emailCliente}/{qtd} (GET BY Email/Qtd) <br>
+*A quantidade de açoes que quer obter. caso peça 4 e tenha 2: retorna 2*
 - PUT URL+/webapi/acoes/{id}
 ```
 Body: {
