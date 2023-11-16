@@ -3,7 +3,7 @@
 # Endpoints
 
 ## Usuário:
-- GET URL+/webapi/usuario (GET ALL CLIENTES)
+- <font color="green">GET</font> URL+/webapi/usuario (GET ALL CLIENTES)
 - GET URL+/webapi/usuario/{email} (GET BY EMAIL)
 - PUT URL+/webapi/usuario/{email}
 ```
