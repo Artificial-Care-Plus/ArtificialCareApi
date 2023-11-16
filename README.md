@@ -20,11 +20,11 @@ Body: {
 - `POST` URL+/webapi/usuario/
 ```
     Body: {
-	"nome" : "Caua Alencar Rojas",
-	"email" : "caua3@gmail.com",
-	"senha" : "caua",
-	"peso" : 75,
-	"altura" : 1.8,
+	"nome" : "Nome do Usuario",
+	"email" : "nome@email.com",
+	"senha" : "senha123",
+	"peso" : 80,
+	"altura" : 1.92,
 	"nascimento" : "2005-07-01"
       }
 ``` 
