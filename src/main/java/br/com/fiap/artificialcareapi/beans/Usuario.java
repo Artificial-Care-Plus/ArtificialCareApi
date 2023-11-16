@@ -90,6 +90,11 @@ public class Usuario {
         this.email = email;
     }
 
+    public Usuario(String email, String senha) {
+        this.email = email;
+        this.senha = senha;
+    }
+
     public Usuario() {
     }
 }
