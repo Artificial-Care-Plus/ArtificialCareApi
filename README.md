@@ -8,12 +8,12 @@
 - `PUT` URL+/webapi/usuario/{email}
 ```
 Body: {
-	"nome" : "Caua Alencar Rojas",
-	"email" : "caua3@gmail.com",
-	"senha" : "caua",
-	"peso" : 80,
+	"nome" : "Nome do Usuario",
+	"email" : "nome@email.com",
+	"senha" : "senha123",
+	"peso" : 74,
 	"altura" : 1.82,
-	"nascimento" : "2005-05-01"
+	"nascimento" : "2005-07-01"
       }
 ```
 - `DELETE` URL+/webapi/usuario/{email}
@@ -25,7 +25,7 @@ Body: {
 	"senha" : "caua",
 	"peso" : 75,
 	"altura" : 1.8,
-	"nascimento" : "2005-05-01"
+	"nascimento" : "2005-07-01"
       }
 ``` 
 ## Ações:
@@ -75,7 +75,7 @@ Body: {
 - `POST` URL+/webapi/login
 ```
 Body: {
- 	 "email" : "caua2r@gmail.com",
-	"senha" : "caua"
+ 	 "email" : "nome@email.com",
+	"senha" : "senha123"
 }
 ```
