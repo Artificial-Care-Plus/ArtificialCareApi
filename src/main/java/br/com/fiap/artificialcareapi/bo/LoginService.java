@@ -2,7 +2,6 @@ package br.com.fiap.artificialcareapi.bo;
 
 import br.com.fiap.artificialcareapi.beans.Mensagem;
 import br.com.fiap.artificialcareapi.beans.Usuario;
-import br.com.fiap.artificialcareapi.dao.UsuarioDao;
 
 import java.sql.SQLException;
 import java.util.UUID;
