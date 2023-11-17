@@ -30,7 +30,6 @@ public class LoginService {
             return new Mensagem("Senha incorreta", false);
         }
         /* Criamos um UUID para ser usado de token no front-end */
-        UUID uuid = UUID.randomUUID();
-        return new Mensagem(uuid.toString(), true);
+        return new Mensagem("Usuário logado com sucesso!", true);
     }
 }
