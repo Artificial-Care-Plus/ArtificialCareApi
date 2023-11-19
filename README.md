@@ -49,7 +49,10 @@ Body: {
 	"data": "2023-01-01Z",
 	"descricao": "Ação 1",
 	"duracao": 32,
-	"score": 1    
+	"score": 1,
+	"usuario": {
+		"email": {email}
+	}   
  }
  ```
 ## Dicas:
