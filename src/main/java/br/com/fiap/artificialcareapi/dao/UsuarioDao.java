@@ -1,6 +1,5 @@
 package br.com.fiap.artificialcareapi.dao;
 
-import br.com.fiap.artificialcareapi.beans.Mensagem;
 import br.com.fiap.artificialcareapi.beans.Usuario;
 
 import java.sql.SQLException;
@@ -16,11 +15,11 @@ public class UsuarioDao {
         var rs = con.createStatement().executeQuery("SELECT * FROM T_AC_USUARIO");
         while(rs.next()){
             usuarios.add(new Usuario(
-                    rs.getLong("id"),
+                    rs.getLong("id_usuario"),
                     rs.getString("nome"),
                     rs.getString("email"),
                     rs.getString("senha"),
-                    rs.getDate("nascimento"),
+                    rs.getDate("dt_nasc"),
                     rs.getDouble("peso"),
                     rs.getDouble("altura")
             )
@@ -33,7 +32,7 @@ public class UsuarioDao {
     public static void create(Usuario usuario) throws SQLException {
             var con = ConnectionFactory.getConnection();
 
-            var ps = con.prepareStatement("INSERT INTO T_AC_USUARIO (nome, email, senha, nascimento, peso, altura) VALUES (?, ?, ?, ?, ?, ?)");
+            var ps = con.prepareStatement("INSERT INTO T_AC_USUARIO (nome, email, senha, dt_nasc, peso, altura) VALUES (?, ?, ?, ?, ?, ?)");
             ps.setString(1, usuario.getNome());
             ps.setString(2, usuario.getEmail());
             ps.setString(3, usuario.getSenha());
@@ -49,7 +48,7 @@ public class UsuarioDao {
     public static void delete(String email) throws SQLException {
             var con = ConnectionFactory.getConnection();
             /* Apaga o usuario e as acoes que ele tem no banco de dados */
-            var ps = con.prepareStatement("DELETE FROM T_AC_ACOES WHERE T_AC_ACOES.T_AC_USUARIO_ID = (SELECT T_AC_USUARIO.id FROM T_AC_USUARIO WHERE T_AC_USUARIO.email = ?)");
+            var ps = con.prepareStatement("DELETE FROM T_AC_ACOES WHERE T_AC_ACOES.T_AC_USUARIO_id_usuario = (SELECT T_AC_USUARIO.id_usuario FROM T_AC_USUARIO WHERE T_AC_USUARIO.email = ?)");
             ps.setString(1, email);
             ps.executeUpdate();
 
@@ -64,7 +63,7 @@ public class UsuarioDao {
     public static void update(String email, Usuario usuario) throws SQLException {
         var con = ConnectionFactory.getConnection();
 
-        var ps = con.prepareStatement("UPDATE T_AC_USUARIO SET nome = ?, email = ?, senha = ?, nascimento = ?, peso = ?, altura = ? WHERE email = ?");
+        var ps = con.prepareStatement("UPDATE T_AC_USUARIO SET nome = ?, email = ?, senha = ?, dt_nasc = ?, peso = ?, altura = ? WHERE email = ?");
         ps.setString(1, usuario.getNome());
         ps.setString(2, usuario.getEmail());
         ps.setString(3, usuario.getSenha());
@@ -88,11 +87,11 @@ public class UsuarioDao {
             return null;
         }
         Usuario usuario = new Usuario (
-                rs.getLong("id"),
+                rs.getLong("id_usuario"),
                 rs.getString("nome"),
                 rs.getString("email"),
                 rs.getString("senha"),
-                rs.getDate("nascimento"),
+                rs.getDate("dt_nasc"),
                 rs.getDouble("peso"),
                 rs.getDouble("altura")
         );

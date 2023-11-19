@@ -50,15 +50,14 @@ public class UsuarioService {
     }
 
     public static Mensagem update(String email, Usuario usuario) throws SQLException {
+        Mensagem validacao = validar(usuario);
+        if (!validacao.isSucesso() && !validacao.getResposta().equals("Email já cadastrado")) return validacao;
         /* Caso o usuario queira trocar o email verificamos se não é igual ao que ele usava antes e depois checamos
          * se não já está cadastrado */
-        Mensagem validacao = validar(usuario);
-        if (!email.equals(usuario.getEmail()) && validacao.isSucesso()) {
+        if (!email.equals(usuario.getEmail()) && validacao.getResposta().equals("Email já cadastrado")) {
         return validacao;
     }
-        try
-
-    {
+        try{
         UsuarioDao.update(email, usuario);
     } catch(
     SQLException e)
@@ -66,9 +65,7 @@ public class UsuarioService {
     {
         return new Mensagem("Erro no servidor ao atualizar usuário", false);
     }
-        return new
-
-    Mensagem("Usuário atualizado com sucesso",true);
+        return new Mensagem("Usuário atualizado com sucesso",true);
 
 }
 

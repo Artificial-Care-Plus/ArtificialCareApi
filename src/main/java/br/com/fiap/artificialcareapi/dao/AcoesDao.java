@@ -13,18 +13,18 @@ public class AcoesDao {
         List<Acoes> acoesLista = new ArrayList<>();
 
         var con = ConnectionFactory.getConnection();
-        var rs = con.createStatement().executeQuery("select * from t_ac_acoes a inner join t_ac_usuario u on a.t_ac_usuario_id = u.id");
+        var rs = con.createStatement().executeQuery("select * from t_ac_acoes a inner join t_ac_usuario u on a.t_ac_usuario_id_usuario = u.id_usuario");
 
         while (rs.next()) {
             acoesLista.add(new Acoes(
 
-                    rs.getLong("id"),
+                    rs.getLong("id_acoes"),
                     new Usuario(
-                            rs.getLong("t_ac_usuario_id"),
+                            rs.getLong("t_ac_usuario_id_usuario"),
                             rs.getString("nome"),
                             rs.getString("email"),
                             rs.getString("senha"),
-                            rs.getDate("nascimento"),
+                            rs.getDate("dt_nasc"),
                             rs.getDouble("peso"),
                             rs.getDouble("altura")
                     ),
@@ -42,7 +42,7 @@ public class AcoesDao {
 
     public static Acoes findById(Long id) throws SQLException {
         var con = ConnectionFactory.getConnection();
-        var rss = con.prepareStatement("select * from t_ac_acoes a inner join t_ac_usuario u on a.t_ac_usuario_id = u.id where a.id = ?");
+        var rss = con.prepareStatement("select * from t_ac_acoes a inner join t_ac_usuario u on a.t_ac_usuario_id_usuario = u.id_usuario where a.id_acoes = ?");
         rss.setLong(1, id);
         var rs = rss.executeQuery();
         rs.next();
@@ -52,13 +52,13 @@ public class AcoesDao {
         }
         Acoes acao = new Acoes(
 
-                rs.getLong("id"),
+                rs.getLong("id_acoes"),
                 new Usuario(
-                        rs.getLong("t_ac_usuario_id"),
+                        rs.getLong("t_ac_usuario_id_usuario"),
                         rs.getString("nome"),
                         rs.getString("email"),
                         rs.getString("senha"),
-                        rs.getDate("nascimento"),
+                        rs.getDate("dt_nasc"),
                         rs.getDouble("peso"),
                         rs.getDouble("altura")
                 ),
@@ -78,7 +78,7 @@ public class AcoesDao {
         List<Acoes> acoesLista = new ArrayList<>();
 
         var con = ConnectionFactory.getConnection();
-        var rss = con.prepareStatement("select * from t_ac_acoes a inner join t_ac_usuario u on a.t_ac_usuario_id = u.id where u.email = ? order by a.id desc fetch first ? rows only");
+        var rss = con.prepareStatement("select * from t_ac_acoes a inner join t_ac_usuario u on a.t_ac_usuario_id_usuario = u.id_usuario where u.email = ? order by a.id_acoes desc fetch first ? rows only");
         rss.setString(1, emailCliente);
         rss.setInt(2, qtd);
         var rs = rss.executeQuery();
@@ -86,13 +86,13 @@ public class AcoesDao {
         while (rs.next()) {
             acoesLista.add(new Acoes(
 
-                    rs.getLong("id"),
+                    rs.getLong("id_acoes"),
                     new Usuario(
-                            rs.getLong("t_ac_usuario_id"),
+                            rs.getLong("t_ac_usuario_id_usuario"),
                             rs.getString("nome"),
                             rs.getString("email"),
                             rs.getString("senha"),
-                            rs.getDate("nascimento"),
+                            rs.getDate("dt_nasc"),
                             rs.getDouble("peso"),
                             rs.getDouble("altura")
                     ),
@@ -112,7 +112,7 @@ public class AcoesDao {
     public static void update(Long id, Acoes acao) throws SQLException {
         var con = ConnectionFactory.getConnection();
 
-        var ps = con.prepareStatement("update t_ac_acoes set score = ?, descricao = ?, duracao = ?, data = ? where id = ?");
+        var ps = con.prepareStatement("update t_ac_acoes set score = ?, descricao = ?, duracao = ?, data = ? where id_acoes = ?");
         ps.setInt(1, acao.getScore());
         ps.setString(2, acao.getDescricao());
         ps.setDouble(3, acao.getDuracao());
@@ -126,7 +126,7 @@ public class AcoesDao {
     public static void delete(Long id) throws SQLException {
         var con = ConnectionFactory.getConnection();
 
-        var ps = con.prepareStatement("delete from t_ac_acoes where id = ?");
+        var ps = con.prepareStatement("delete from t_ac_acoes where id_acoes = ?");
         ps.setLong(1, id);
         ps.executeUpdate();
 
@@ -137,7 +137,7 @@ public class AcoesDao {
     public static void create(Acoes acao) throws SQLException {
         var con = ConnectionFactory.getConnection();
 
-        var ps = con.prepareStatement("insert into t_ac_acoes (t_ac_usuario_id, score, descricao, duracao, data) values ((select T_AC_USUARIO.id from T_AC_USUARIO where email = ?), ?, ?, ?, ?)");
+        var ps = con.prepareStatement("insert into t_ac_acoes (t_ac_usuario_id_usuario, score, descricao, duracao, data) values ((select T_AC_USUARIO.id_usuario from T_AC_USUARIO where email = ?), ?, ?, ?, ?)");
 
         ps.setString(1, acao.getUsuario().getEmail());
         ps.setInt(2, acao.getScore());

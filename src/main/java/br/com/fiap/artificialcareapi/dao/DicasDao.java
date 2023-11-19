@@ -15,7 +15,7 @@ public class DicasDao {
 
         while (rs.next()) {
             dicasLista.add(new Dicas(
-                    rs.getLong("id"),
+                    rs.getLong("id_dicas"),
                     rs.getString("categoria"),
                     rs.getString("texto")
             ));
@@ -28,7 +28,7 @@ public class DicasDao {
     public static Dicas find(Long id) throws SQLException {
         var con = ConnectionFactory.getConnection();
 
-        var rss = con.prepareStatement("select * from t_ac_dicas where id = ?");
+        var rss = con.prepareStatement("select * from t_ac_dicas where id_dicas = ?");
         rss.setLong(1, id);
 
         var rs = rss.executeQuery();
@@ -39,7 +39,7 @@ public class DicasDao {
         }
 
         Dicas dica = new Dicas(
-                rs.getLong("id"),
+                rs.getLong("id_dicas"),
                 rs.getString("categoria"),
                 rs.getString("texto")
         );
@@ -65,7 +65,7 @@ public class DicasDao {
     public static void update(Long id, Dicas dicas) throws SQLException {
         var con = ConnectionFactory.getConnection();
 
-        var ps = con.prepareStatement("update t_ac_dicas set categoria = ?, texto = ? where id = ?");
+        var ps = con.prepareStatement("update t_ac_dicas set categoria = ?, texto = ? where id_dicas = ?");
         ps.setString(1, dicas.getCategoria());
         ps.setString(2, dicas.getTexto());
         ps.setLong(3, id);
@@ -78,7 +78,7 @@ public class DicasDao {
     public static void delete(Long id) throws SQLException {
         var con = ConnectionFactory.getConnection();
 
-        var ps = con.prepareStatement("delete from t_ac_dicas where id = ?");
+        var ps = con.prepareStatement("delete from t_ac_dicas where id_dicas = ?");
         ps.setLong(1, id);
 
         ps.executeUpdate();
