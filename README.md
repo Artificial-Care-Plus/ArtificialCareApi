@@ -1,5 +1,9 @@
 # ArtificialCareApi 
 
+# Como Usar
+- Baixe o arquivo
+- Abra o diretório no eclipse
+- Hosteie ele com o TomCat v10
 # Endpoints
 
 ## Usuário:
